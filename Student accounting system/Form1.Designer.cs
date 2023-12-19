@@ -157,6 +157,7 @@
             this.checkboxShowPass.TabIndex = 3;
             this.checkboxShowPass.Text = "Show Password";
             this.checkboxShowPass.UseVisualStyleBackColor = true;
+            this.checkboxShowPass.CheckedChanged += new System.EventHandler(this.checkboxShowPass_CheckedChanged);
             // 
             // registrationButton
             // 
@@ -171,6 +172,7 @@
             this.registrationButton.TabIndex = 4;
             this.registrationButton.Text = "REGISTER";
             this.registrationButton.UseVisualStyleBackColor = false;
+            this.registrationButton.Click += new System.EventHandler(this.registrationButton_Click);
             // 
             // clearButton
             // 
@@ -186,6 +188,7 @@
             this.clearButton.TabIndex = 4;
             this.clearButton.Text = "CLEAR";
             this.clearButton.UseVisualStyleBackColor = false;
+            this.clearButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // label5
             // 
@@ -206,6 +209,7 @@
             this.label6.Size = new System.Drawing.Size(149, 28);
             this.label6.TabIndex = 5;
             this.label6.Text = "Back to LOGIN";
+            this.label6.Click += new System.EventHandler(this.label6_Click_1);
             // 
             // textBox1
             // 

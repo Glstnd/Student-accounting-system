@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Configuration;
+using Npgsql;
 namespace Login_and_Register_System
 {
     public partial class Form1 : Form
@@ -15,6 +16,75 @@ namespace Login_and_Register_System
         public Form1()
         {
             InitializeComponent();
+        }
+
+        NpgsqlConnection conn = new NpgsqlConnection(ConfigurationManager.AppSettings.Get("MyConnection"));
+        NpgsqlCommand cmd = new NpgsqlCommand();
+
+        private void checkboxShowPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkboxShowPass.Checked)
+            {
+                txtPassword.PasswordChar = '\0';
+                txtComPassword.PasswordChar = '\0';
+
+            }
+            else
+            {
+                txtPassword.PasswordChar = '*';
+                txtComPassword.PasswordChar = '*';
+            }
+        }
+
+        private void registrationButton_Click(object sender, EventArgs e)
+        {
+            if (txtUsername.Text == "" && txtPassword.Text == "" && txtComPassword.Text == "" && textBox1.Text == "" && textBox3.Text == "")
+            {
+                MessageBox.Show("Username and Password fields are empty", "Sign Up Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (txtPassword.Text == txtComPassword.Text)
+            {
+                try
+                {
+                    conn.Open();
+                    MessageBox.Show("Connection opened");
+                    string register = "INSERT INTO requests (username,password,Имя, Фамилия, Должность, Факультет) VALUES ('" + txtUsername.Text + "','" + txtPassword.Text + "','" + textBox1.Text + "','" + textBox3.Text + "','" + textBox5.Text + "','" + textBox4.Text + "')";
+                    cmd = new NpgsqlCommand(register, conn);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                    txtUsername.Text = "";
+                    txtPassword.Text = "";
+                    txtComPassword.Text = "";
+                    MessageBox.Show("Your account has been Successfully Created", "Registration Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Passwords does not match, Please Re-enter", "Registration Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtComPassword.Text = "";
+                txtPassword.Text = "";
+                txtPassword.Focus();
+
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txtUsername.Text = "";
+            txtPassword.Text = "";
+            txtComPassword.Text = "";
+            txtUsername.Focus();
+        }
+
+        private void label6_Click_1(object sender, EventArgs e)
+        {
+
+            new LoginForm().Show();
+            this.Hide();
         }
     }
 }
