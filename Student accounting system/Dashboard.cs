@@ -190,5 +190,57 @@ namespace Login_and_Register_System
             }
 
         }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            cmd = new NpgsqlCommand("DELETE FROM students", conn);
+            cmd.ExecuteNonQuery();
+            conn.Close();
+
+
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            {
+                string row = "INSERT INTO students (\"";
+                string values = " VALUES ('";
+                for (int j = 1; j < columns.Length; j++)
+                {
+                    if (dataGridView1.Rows[i].Cells[j].Value != null && dataGridView1.Rows[i].Cells[j].Value.ToString() != "")
+                    {
+                        if (row != "INSERT INTO students (\"")
+                        {
+                            values += ", '";
+                            row += "\", \"";
+                        }
+                        row += columns[j];
+                        values += dataGridView1.Rows[i].Cells[j].Value.ToString() + "'";
+                    }
+                }
+
+                row += "\")";
+                row += values + ")";
+
+                conn.Open();
+                cmd = new NpgsqlCommand(row, conn);
+                cmd.ExecuteNonQuery();
+                conn.Close();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Hide();
+            dataGridView2.Show();
+            button3.Show();
+            button4.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            dataGridView2.Hide();
+            button3.Hide();
+            button4.Hide();
+            dataGridView1.Show();
+        }
     }
 }
