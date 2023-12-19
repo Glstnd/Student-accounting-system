@@ -57,7 +57,7 @@ namespace Login_and_Register_System
                 Dashboard.instance.faculty = admin_faculty;
                 Dashboard.instance.typeUser = type;
                 Dashboard.instance.lbl_faculty.Text = Dashboard.instance.faculty;
-                //Dashboard.instance.BeginData();
+                Dashboard.instance.BeginData();
                 this.Hide();
             }
             else
