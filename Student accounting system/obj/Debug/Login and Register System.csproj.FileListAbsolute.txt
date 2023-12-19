@@ -93,3 +93,4 @@ C:\Users\User\Documents\GitHub\Student-accounting-system\Student accounting syst
 C:\Users\User\Documents\GitHub\Student-accounting-system\Student accounting system\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\User\Documents\GitHub\Student-accounting-system\Student accounting system\bin\Debug\System.ValueTuple.xml
 C:\Users\User\Documents\GitHub\Student-accounting-system\Student accounting system\obj\Debug\Login and Register System.csproj.CopyComplete
+C:\Users\User\Documents\GitHub\Student-accounting-system\Student accounting system\obj\Debug\Login_and_Register_System.Dashboard.resources

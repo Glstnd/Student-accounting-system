@@ -37,7 +37,40 @@ namespace Login_and_Register_System
 
         private void registrationButton_Click(object sender, EventArgs e)
         {
-            return;
+            if (conn != null && conn.State == ConnectionState.Open)
+            {
+                conn.Close();
+            }
+            conn.Open();
+            string login = ("SELECT * FROM csharp_user WHERE username =  '" + txtUsername.Text + "' and password = '" + txtPassword.Text + "' ");
+            cmd = new NpgsqlCommand(login, conn);
+            NpgsqlDataReader dr = cmd.ExecuteReader();
+
+
+            if (dr.Read() == true)
+            {
+                string admin_faculty = dr["Факультет"].ToString().TrimEnd();
+                string type = dr["Должность"].ToString().TrimEnd();
+                conn.Close();
+                new Dashboard().Show();
+                Dashboard.instance.lbl.Text = txtUsername.Text;
+                Dashboard.instance.faculty = admin_faculty;
+                Dashboard.instance.typeUser = type;
+                Dashboard.instance.lbl_faculty.Text = Dashboard.instance.faculty;
+                //Dashboard.instance.BeginData();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Invalid Credentials, please try Again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUsername.Text = "";
+                txtPassword.Text = "";
+                txtUsername.Focus();
+                if (conn != null && conn.State == ConnectionState.Closed)
+                {
+                    conn.Open();
+                }
+            }
         }
 
         private void checkboxShowPass_CheckedChanged(object sender, EventArgs e)
